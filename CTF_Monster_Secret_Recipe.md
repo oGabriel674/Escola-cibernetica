@@ -51,9 +51,11 @@ Então, inserindo a string diretamente na caixa de texto principal, realizamos a
 
 Após a decodificação, é revelada outra string codificada - desta vez, no formato [Base64](https://en.wikipedia.org/wiki/Base64).
 
+<img width="635" height="68" alt="Captura de tela 2025-09-06 131707" src="https://github.com/user-attachments/assets/4dac28b9-0042-4226-859c-43964e984eba" />
+
 Utilizando a ferramenta Base64 do site [DokeHost](https://dokehost.com.br/ferramenta/codificar-decodificar-base64), é possível decodificar a mensagem. Pra isto, basta selecionar a opção de descriptografia, inserir a string e clicar em "decodificar".
 
-<img width="1031" height="368" alt="Captura2 de tela 2025-09-06 132502" src="https://github.com/user-attachments/assets/89e6dcc6-515c-4b73-b34b-c089c15f8b98" />
+<img width="1031" height="368" alt="Captura2 de tela 2025-09-06 132502" src="https://github.com/user-attachments/assets/de486c7a-eb5b-4ca2-9503-681b7f32b58b" />
 
 Consseguimos, assim, encontrar a nossa flag.
 
