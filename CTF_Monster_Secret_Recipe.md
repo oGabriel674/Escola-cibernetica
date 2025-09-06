@@ -6,7 +6,7 @@
 ## Desafio:  Cookie Monster Secret Recipe (Web Exploitation)
 #### Intrudução
 
-Este é um desafio de CTF (Capture The Flag), apresentado em 2025 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutório voltada para ["Web Exploitation"](https://pt.wikipedia.org/wiki/Exploit_(seguran%C3%A7a_de_computadores)), onde o objetivo é explorar um site em busca da receita secreta de cookies, escondida em algum lugar.
+Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2025 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutório voltada para ["Web Exploitation"](https://pt.wikipedia.org/wiki/Exploit_(seguran%C3%A7a_de_computadores)), onde o objetivo é explorar um site em busca da receita secreta de cookies, escondida em algum lugar.
 
 #### Análise Inicial
 
@@ -35,8 +35,34 @@ Ao tentar realizar o login, nos deparamos com a seguinte mensagem de erro:
 
 <img width="578" height="203" alt="Captura de tela 2025-09-06 001214" src="https://github.com/user-attachments/assets/85781301-970e-463b-b6f6-cb4e067d7acb" />
 
-A mensagem, mais uma vez, sugere que os cookies são relevantes. Ao analizar os dados no navegador, identificamos um cookie chamado "secret_recip", cujo valor está codificado.
+A mensagem, mais uma vez, sugere que os cookies são relevantes. 
 
-> cGljb0NURntjMDBrMWVfbTBuc3Rlcl9sMHZlc19jMDBraWVzXzczMTEwRUQxfQ%3D%3D
+Analizando os dados no navegador, identificamos um cookie chamado "secret_recip", cujo valor está codificado.
 
+<img width="896" height="85" alt="Captura de tela 2025-09-06 130855" src="https://github.com/user-attachments/assets/407ec2b5-5bf5-43d7-96db-273efd876506" />
 
+Ao observar o conteúdo, nota-se que se trata de uma [codificação URL](https://en.wikipedia.org/wiki/Percent-encoding)(oficialmente conhecida como codificação percentual). 
+
+Para realizar a decodificação, utilizei o site [URLenconder.org](https://www.urlencoder.org/pt/), que oferece ferramentas uteis e práticas para auxiliar nesse processo.
+
+Então, inserindo a string diretamente na caixa de texto principal, realizamos a decodificação - que pode ser feita simplismente clicando em "Decodificar".
+
+<img width="1201" height="568" alt="cópiaCaptura de tela 2025-09-06 131707" src="https://github.com/user-attachments/assets/721ea280-7372-43e0-a7f8-7a0610b6b0b6" />
+
+Após a decodificação, é revelada outra string codificada - desta vez, no formato [Base64](https://en.wikipedia.org/wiki/Base64).
+
+Utilizando a ferramenta Base64 do site [DokeHost](https://dokehost.com.br/ferramenta/codificar-decodificar-base64), é possível decodificar a mensagem. Pra isto, basta selecionar a opção de descriptografia, inserir a string e clicar em "decodificar".
+
+<img width="1031" height="368" alt="Captura2 de tela 2025-09-06 132502" src="https://github.com/user-attachments/assets/89e6dcc6-515c-4b73-b34b-c089c15f8b98" />
+
+Consseguimos, assim, encontrar a nossa flag.
+
+<img width="810" height="231" alt="Captura de tela 2025-09-06 142016" src="https://github.com/user-attachments/assets/e59bdc68-7f9f-4c72-83de-582854731309" />
+
+#### conclusão
+
+Bandeira:
+
+> picoCTF{c00k1e_m0nster_l0ves_c00kies_73110ED1}
+
+Este desafio foi uma excelente aplicação dos conceitos básicos de Web Exploitation e criptografia, mostrando que a resposta pode estar sempre á vista - basta saber como procurar.
