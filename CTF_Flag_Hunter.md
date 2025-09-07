@@ -29,7 +29,7 @@ Utilizarei o terminal do [Kali Linux](https://en.wikipedia.org/wiki/Kali_Linux) 
 
 O desafio solicita que estabeleçamos uma conexão com o serviço remoto utilizando o comando [NetCat](https://en.wikipedia.org/wiki/Netcat)($ nc verbal-sleep.picoctf.net 53369). Além disso, o código-fonte do programa é disponibilizado para download, permitindo uma melhor análise de sua lógica. 
 
-Ao executarmos o comando, somos conectados a um programa que aparentemente nos apresenta o início de um poema, seguindo por um campo de entrada onde podemos digitar algo.
+Ao executarmos o comando, somos conectados a um programa que aparentemente nos apresenta o início de um poema, seguindo por um campo de entrada onde podemos digitar.
 
 <img width="640" height="251" alt="Screenshot_2025-09-06_14_14_49" src="https://github.com/user-attachments/assets/e2fc45e3-f430-4be2-b2ce-c4374d1ac694" />
 
