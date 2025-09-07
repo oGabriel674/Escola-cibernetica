@@ -46,9 +46,10 @@ O texto resultante das duas decodificações em Base64 ainda apresenta caracter�
 
 <img width="910" height="194" alt="Captura de tela 2025-09-07 122039" src="https://github.com/user-attachments/assets/8aebf6e5-1ece-4d35-8219-94544fc06646" />
 
-Provavelmente trata-se de uma cifra de rotação. Para decifrá-la, podemos utilizar a ferramenta disponível no site [dcode.fr](https://www.dcode.fr/). Basta acessar o campo de busca “Recherche sur dCode”, digitar "ROT13" - refere-se a uma técnica simples de criptografia chamada "Rotate by 13", ou rotação de 13 posições no alfabeto, uma variação da [Cifra de César](https://pt.wikipedia.org/wiki/Cifra_de_C%C3%A9sar) - e selecionar a opção “Code César (ROT13, ROT...)”.
+Provavelmente trata-se de uma cifra de rotação. Para decifrá-la, podemos utilizar a ferramenta disponível no site [dcode.fr](https://www.dcode.fr/). Basta acessar o campo de busca “Recherche sur dCode”, digitar "ROT13" - refere-se a uma técnica simples de criptografia chamada "Rotate by 13", ou rotação de 13 posições no alfabeto, uma variação da [Cifra de César](https://pt.wikipedia.org/wiki/Cifra_de_C%C3%A9sar) - e selecionar a opção “Code César (ROT13, ROT)”.
 
-<img width="420" height="503" alt="Captura de tela 2025-09-07 130745" src="https://github.com/user-attachments/assets/68007ac0-e9fb-4919-ae8f-33ce5234bf9e" />
+<img width="421" height="459" alt="Captura de tela 2025-09-07 151840" src="https://github.com/user-attachments/assets/6be022ee-e566-44a2-ac27-f76a08c4e44e" />
+
 
 Em seguida, inserimos o texto cifrada e aplicamos a decodificação para revelar a flag.
 
