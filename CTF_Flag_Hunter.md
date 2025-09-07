@@ -27,7 +27,7 @@ Além disso, possui três dicas:
 
 Utilizarei o terminal do [Kali Linux](https://en.wikipedia.org/wiki/Kali_Linux) para resolver este desafio.
 
-O desafio solicita que estabeleçamos uma conexão com o serviço remoto utilizando o comando [NetCat](https://en.wikipedia.org/wiki/Netcat)($ nc verbal-sleep.picoctf.net 53369). Além disso, o código-fonte do programa é disponibilizado para download, permitindo uma melhor análise de sua lógica. 
+O desafio solicita que estabeleçamos uma conexão com o serviço remoto utilizando o comando [NetCat](https://en.wikipedia.org/wiki/Netcat) ($ nc verbal-sleep.picoctf.net 53369). Além disso, o código-fonte do programa é disponibilizado para download, permitindo uma melhor análise de sua lógica. 
 
 Ao executarmos o comando, somos conectados a um programa que aparentemente nos apresenta o início de um poema, seguindo por um campo de entrada onde podemos digitar.
 
@@ -43,7 +43,8 @@ Analizando o código-fonte, é possivel identificar rapidamente onde a flag est�
 
 <img width="402" height="236" alt="Captura de tela 2025-09-06 192217" src="https://github.com/user-attachments/assets/04185084-aff6-412a-ae1c-eeca360fb6e6" />
 
-Na estrutura principal do script, observamos que a excução se inicia com um loop [while](https://linguagemc.com.br/o-comando-while-em-c/), que permanece ativo até que o poema termine ou número máximo de linhas seja atingido. Dentro desse loop, há um [for](https://linguagemc.com.br/a-estrutura-de-repeticao-for-em-c/) que percorre cada linha da letra e a divide por ponto e vírgula(":"), caso existem múltiplos comandos na mesma linha. A lógica central do script consiste em verificar o conteúdo de cada linha por meio de instruções [if](https://www.inf.pucrs.br/flash/cbp/selecao_if.html). Dependendo do comando encontrado, o programa decide qual trecho da letra será exibido a seguir. A última condição - e talvez a mais reveladora - verifica se a linha começa com o comando "RETURN" seguido de um número, Esse número representa o índice da linha para onde o script deve retornar. Ao analisar esse comportamento, percebemos que o retorno pode levar diretamente ao início da execução, onde está localizada a introdução secreta que contém a flag. Assim descobrimos que o número a ser usado após o comando "RETURN" será o 0.
+Na estrutura principal do script, observamos que a excução se inicia com um loop [while](https://linguagemc.com.br/o-comando-while-em-c/), que permanece ativo até que o poema termine ou número máximo de linhas seja atingido. Dentro desse loop, há um [for](https://linguagemc.com.br/a-estrutura-de-repeticao-for-em-c/) que percorre cada linha da letra e a divide por ponto e vírgula(":"), caso existem múltiplos comandos na mesma linha. A lógica central do script consiste em verificar o conteúdo de cada linha por meio de instruções [if](https://www.inf.pucrs.br/flash/cbp/selecao_if.html). Dependendo do comando encontrado, o programa decide qual trecho da letra será exibido a seguir. A última condição - e talvez a mais reveladora - verifica se a linha começa com o comando "RETURN" seguido de um número, Esse número representa o índice da linha para onde o script deve retornar. Ao analisar esse comportamento, percebemos que o retorno pode levar diretamente ao início da execução, onde está localizada a introdução secreta que contém a flag. Portanto, a escolha lógica do número a ser usado após o comando "RETURN" é aquela que aponta para o índice da linha onde essa introdução está presente (linha 0). 
+
 
 <img width="624" height="882" alt="Captura de tela 2025-09-06 165736" src="https://github.com/user-attachments/assets/f80dc713-420e-43be-9185-b459a6a7b833" />
 
