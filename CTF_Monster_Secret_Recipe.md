@@ -6,7 +6,7 @@
 ## Desafio:  Cookie Monster Secret Recipe (Web Exploitation)
 #### Intrudução
 
-Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2025 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutório voltada para ["Web Exploitation"](https://pt.wikipedia.org/wiki/Exploit_(seguran%C3%A7a_de_computadores)), onde o objetivo é explorar um site em busca da receita secreta de cookies, escondida em algum lugar.
+Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2025 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutória voltada para ["Web Exploitation"](https://pt.wikipedia.org/wiki/Exploit_(seguran%C3%A7a_de_computadores)), onde o objetivo é explorar um site em busca da receita secreta de cookies, escondida em algum lugar.
 
 - [Página do desafio](https://play.picoctf.org/practice/challenge/469)
   
