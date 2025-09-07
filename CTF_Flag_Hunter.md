@@ -6,7 +6,7 @@
 ## Desafio: Flag Hunter (Reverse Engineering)
 #### Intrudução
  
- Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2025 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutório voltada para ["Reverse Engineering"](https://en.wikipedia.org/wiki/Reverse_engineering). O desafio é analisar um binário que contém uma função de verificação de flag, compreender sua lógica interna e, a partir disso, descobrir a flag.
+ Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2025 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutória voltada para ["Reverse Engineering"](https://en.wikipedia.org/wiki/Reverse_engineering). O desafio é analisar um binário que contém uma função de verificação de flag, compreender sua lógica interna e, a partir disso, descobrir a flag.
 
 - [Página do desafio](https://play.picoctf.org/practice/challenge/472).
 
