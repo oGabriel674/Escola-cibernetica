@@ -65,7 +65,7 @@ Consseguimos, assim, encontrar a nossa flag.
 
 #### conclusão
 
-Bandeira:
+Flag:
 
 > picoCTF{c00k1e_m0nster_l0ves_c00kies_73110ED1}
 
