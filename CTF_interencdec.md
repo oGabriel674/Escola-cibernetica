@@ -61,7 +61,7 @@ Após isso a flag é revelada.
 
 #### conclusão
 
-Bandeira:
+flag:
 
 > picoCTF{caesar_d3cr9pt3d_ea60e00b}
 
