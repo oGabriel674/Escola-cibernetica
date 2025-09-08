@@ -6,7 +6,7 @@
 ## Desafio: Interencdec (Cryptography)
 #### Intrudução
  
- Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2024 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutória voltada para ["Cryptography"](https://en.wikipedia.org/wiki/Cryptography). O desafio trata-se de decodificar um arquivo em diferentes processos.
+ Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2024 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutória voltada para ["Cryptography"](https://en.wikipedia.org/wiki/Cryptography). O desafio trata-se de decodificar uma string em diferentes processos para encontrar a flag.
 
 - [Página do desafio](https://play.picoctf.org/practice/challenge/418).
 
