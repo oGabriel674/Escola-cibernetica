@@ -6,7 +6,9 @@
 ## Desafio: RED (Forensics)
 #### Intrudução
 
-Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2025 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutória voltada para categoria de ["Forensics"](https://trailofbits.github.io/ctf/forensics/), com o objetivo de investigar um arquivo suspeito.
+Este é um desafio de [CTF](https://hackersec.com/desafios-hacker-o-que-sao-os-ctf/) (Capture The Flag), apresentado em 2025 pela plataforma [picoCTF](https://picoctf.org/). Trata-se de uma proposta introdutória voltada para categoria de ["Forensics"](https://trailofbits.github.io/ctf/forensics/). 
+
+O desafio possui o objetivo de investigar um arquivo suspeito.
 
 - [Página do desafio](https://play.picoctf.org/practice/challenge/460)
   
