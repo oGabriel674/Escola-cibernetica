@@ -55,7 +55,7 @@ Ao inserir um ponto e vírgula antes do comando "RETURN", conseguimos dividir a 
 
 #### conclusão 
 
-bandeira:
+flag:
 
 > picoCTF{70637h3r_f0r3v3r_0ed60683}
 
