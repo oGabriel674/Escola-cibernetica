@@ -35,13 +35,13 @@ Ao executarmos o comando, somos conectados a um programa que aparentemente nos a
 
 <img width="640" height="251" alt="Screenshot_2025-09-06_14_14_49" src="https://github.com/user-attachments/assets/e2fc45e3-f430-4be2-b2ce-c4374d1ac694" />
 
-Ao tentarmos digitar algo, o programa apenas retorna mais algumas linhas de texto que completam o poema, No entanto, ao analisarmos mais profundamente, é possível notar que uma parte do texto se repete.
+Ao tentarmos digitar algo, o programa apenas retorna mais algumas linhas de texto que completam o poema, No entanto, ao analisarmos mais profundamente, é possível notar que uma parte do texto se repete, junto com o que foi digitado.
 
 <img width="604" height="308" alt="Screenshot_2025-09-06_17_10_14" src="https://github.com/user-attachments/assets/d23fc76b-8a35-4ee8-8445-d157b71a11d3" />
 
 Após essa etapa, o programa encerra a exibição e perminte digitar novamente em seu campo de entrada.
 
-Analizando o código-fonte, é possivel identificar rapidamente onde a flag está inserida. Logo no início do script podemos notar que a flag está armazenada em um arquivo de texto, que só será executado quando a introdução secreta é impressa. 
+Analizando o código-fonte, é possivel identificar rapidamente onde a flag está inserida. Logo no início do script podemos notar que a flag está armazenada em um arquivo de texto, que só será executado quando a introdução secreta é impressa.
 
 <img width="402" height="236" alt="Captura de tela 2025-09-06 192217" src="https://github.com/user-attachments/assets/04185084-aff6-412a-ae1c-eeca360fb6e6" />
 
