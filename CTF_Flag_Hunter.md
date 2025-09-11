@@ -35,7 +35,7 @@ Ao executarmos o comando, somos conectados a um programa que aparentemente nos a
 
 <img width="640" height="251" alt="Screenshot_2025-09-06_14_14_49" src="https://github.com/user-attachments/assets/e2fc45e3-f430-4be2-b2ce-c4374d1ac694" />
 
-Ao tentarmos digitar algo, o programa apenas retorna mais algumas linhas de texto que completam o poema, No entanto, ao analisarmos mais profundamente, é possível notar que uma parte do texto se repete, junto com o que foi digitado.
+Ao tentarmos digitar algo, o programa apenas retorna mais algumas linhas de texto que completam o poema, No entanto, ao analisarmos mais profundamente, é possível notar que uma parte do texto se repete, juntamente com o que foi digitado e o prefixo  "Crowd:".
 
 <img width="604" height="308" alt="Screenshot_2025-09-06_17_10_14" src="https://github.com/user-attachments/assets/d23fc76b-8a35-4ee8-8445-d157b71a11d3" />
 
