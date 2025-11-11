@@ -20,3 +20,13 @@ acessível através das credenciais padrão (natas0 / natas0).
 No início, nos deparamos com a seguinte página, que exibe a seguinte mensagem:
 
 <img width="747" height="146" alt="Captura de tela 2025-11-11 161446" src="https://github.com/user-attachments/assets/cd31dde5-c5c0-48d0-8909-9612503d0482" />
+
+A solução para este nível é bastante simples: ao inspecionar o código-fonte da página, é possível localizar a chave de acesso para o próximo desafio.
+
+<img width="689" height="442" alt="Captura de tela 2025-11-11 161430" src="https://github.com/user-attachments/assets/35c2661b-66c8-4b15-a24e-c8076f825aa0" />
+
+> chave: 0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq
+
+#### nível 1 → 2
+
+> credenciais: natas1 / 0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq
