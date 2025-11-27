@@ -93,10 +93,56 @@ Ao analisarmos o arquivo `/robots.txt` — que contém instruções para robôs 
 
 Ao abrir o arquivo, encontramos a chave necessária para avançar para o próximo nível.
 
-<img width="366" height="42" alt="Captura de tela 2025-11-20 215131" src="https://github.com/user-attachments/assets/4271e0bd-21b5-419f-ba1e-b4e68fb2569f" />
+<img width="366" height="42" alt="Captura de tela 2025-11-20 215131" src="https://github.com/user-attachments/assets/4271e0bd-21b5-419f-ba1e-b4e68fb2569f" /> 
 
 > chave: QryZXc2e0zahULdHrtHxzyYkj59kUxLQ
 
 #### nível 4 → 5
 
 > credenciais: natas4 / QryZXc2e0zahULdHrtHxzyYkj59kUxLQ
+
+Neste novo nível, somos apresentados à seguinte frase:
+
+<img width="745" height="191" alt="Captura de tela 2025-11-26 213253" src="https://github.com/user-attachments/assets/43724b43-32ae-4c4a-8bda-752cb5662c94" />
+
+Ao recarregar a página, uma nova frase é exibida:
+
+<img width="749" height="210" alt="Captura de tela 2025-11-26 213526" src="https://github.com/user-attachments/assets/62314d18-9706-4dcd-a8ab-679b0de3a34a" />
+
+Indicando que a chave só poderá ser acessada por um usuário autorizado; nesse caso, o acesso deve ocorrer a partir de `http://natas5.natas.labs.overthewire.org/`
+
+Para contornar isso, utilizamos o Burp Suite, que funciona como um proxy capaz de interceptar e manipular o tráfego entre o navegador e o servidor.
+
+Com o Burp Suite aberto e o navegador configurado para utilizar o proxy, acesse `http://natas4.natas.labs.overthewire.org/`para que a requisição seja capturada em __Proxy → Intercept__. Na mensagem interceptada, localizamos o cabeçalho __Referer__, que aparece como `Referer: http://natas4.natas.labs.overthewire.org/`, e o substituimos por `Referer: http://natas5.natas.labs.overthewire.org/`. 
+
+<img width="1905" height="786" alt="Screenshot_2025-11-26_18_48_10" src="https://github.com/user-attachments/assets/05027ee4-5acf-49c9-8dde-798fbd663fb4" />
+
+Em seguida, encaminhamos a requisição com __Forward__ para que o servidor a aceite como proveniente do domínio autorizado. Com essa alteração, a página correta será retornada e a resposta exibirá a senha necessária para acessar o próximo nível (Natas5).
+
+<img width="598" height="157" alt="Screenshot_2025-11-26_18_52_16" src="https://github.com/user-attachments/assets/da7181ca-c38d-4d86-b38d-14a97f2856ed" />
+
+> chave: 0n35PkgqAPm2zbEpOU802c0x0Msn1ToK
+
+#### nível 5 → 6
+
+> credenciais: natas5 / 0n35PkgqAPm2zbEpOU802c0x0Msn1ToK
+
+Enunciado do nível:
+ 
+<img width="749" height="144" alt="Captura de tela 2025-11-26 220402" src="https://github.com/user-attachments/assets/01259568-979f-4daf-ac02-dbd784cd8a89" />
+
+De acordo com o enunciado, o desafio verifica se o usuário está autenticado ou não. É provável que o site utilize [cookies de sessão](https://www.cookieyes.com/blog/session-cookies/) para controlar o estado de login. Com base nisso, o objetivo passa a ser identificar o cookie responsável pela autenticação e manipular seu valor de forma a simular um usuário autorizado.
+
+Para realizar essa manipulação, é necessário acessar o [__DevTools__](https://learn.microsoft.com/pt-br/microsoft-edge/devtools/overview) do navegador e abrir a aba de Cookies. Em seguida, deve-se localizar o cookie associado ao domínio `natas5.natas.labs.overthewire.or`. Após identificar o cookie responsável pela autenticação, basta alterar seu valor — que provavelmente estará definido como __0__ — para __1__, simulando assim um estado de usuário autenticado.
+
+<img width="1920" height="251" alt="Screenshot_2025-11-26_20_40_37" src="https://github.com/user-attachments/assets/2fe437d5-0f0b-4170-bf2c-452e320c518a" />
+
+Essa modificação permite contornar a verificação de autenticação e acessar a chave necessária para avançar ao próximo nível do desafio
+
+<img width="599" height="134" alt="Screenshot_2025-11-26_20_40_54" src="https://github.com/user-attachments/assets/00cd14b9-c4a4-4977-9d6a-ff85c2607d8a" />
+
+> chave: 0RoJwHdSKWFTYR5WuiAewauSuNaBXned
+
+#### nível 6 → 7
+
+> credenciais: natas6 / 0RoJwHdSKWFTYR5WuiAewauSuNaBXned
