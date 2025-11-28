@@ -63,7 +63,7 @@ Ao acessarmos o link, somos redirecionados para uma nova página que, aparenteme
 
 <img width="535" height="360" alt="Captura de tela 2025-11-20 212106" src="https://github.com/user-attachments/assets/a40fbe6c-afe0-45bc-b9f0-8c4ad6903543" />
 
-Ao observar com um pouco mais de atenção o link identificado, notamos que ele contém um caminho adicional na [URL](https://tecnoblog.net/responde/o-que-e-url/) , especificamente um diretório denominado /files/ antes do arquivo pixel.png, podendo indicar a existência de outros recursos acessíveis nesse mesmo diretório.
+Ao observar com um pouco mais de atenção o link identificado, notamos que ele contém um caminho adicional na [URL](https://tecnoblog.net/responde/o-que-e-url/) , especificamente um diretório denominado `/files/` antes do arquivo pixel.png, podendo indicar a existência de outros recursos acessíveis nesse mesmo diretório.
 
 Acessando o diretório /files/, encontramos um arquivo denominado user.txt.
 
@@ -146,3 +146,109 @@ Essa modificação permite contornar a verificação de autenticação e acessar
 #### nível 6 → 7
 
 > credenciais: natas6 / 0RoJwHdSKWFTYR5WuiAewauSuNaBXned
+
+Enunciado do nível:
+
+<img width="752" height="212" alt="Captura de tela 2025-11-27 202754" src="https://github.com/user-attachments/assets/709cd444-9a4f-48e7-8260-57ad9a03accf" />
+
+A página solicita uma __“entrada secreta”__ como condição para revelar a chave de acesso ao próximo nível do desafio.
+
+Além disso, a página disponibiliza um link que permite acessar diretamente o código-fonte da aplicação. Ao abrir esse recurso, nos deparamos com o seguinte trecho de código, que revela a lógica utilizada pelo servidor para validar a “entrada secreta” e controlar o acesso à chave do próximo nível.
+
+<img width="1428" height="691" alt="Captura de tela 2025-11-27 201823" src="https://github.com/user-attachments/assets/79151f9e-3063-4433-8900-38056e3968d7" />
+
+Ao analisar o código, identificamos uma linha com a seguinte estrutura:
+
+`include "includes/secret.inc";`
+
+Esse trecho revela que o sistema está importando um arquivo externo, localizado em __includes/secret.inc__. Isso indica que a chave necessária para avançar no desafio está acessível diretamente por meio dessa URL. Assim, ao acessar o caminho correspondente no navegador, conseguimos visualizar o conteúdo do arquivo e obter a entrada sevreta.
+
+<img width="331" height="74" alt="Captura de tela 2025-11-27 202548" src="https://github.com/user-attachments/assets/01855284-7112-4f0d-9955-19c43277cf60" />
+
+Ao fornecer a entrada secreta, a aplicação valida o acesso e retorna a chave necessária para avançar ao próximo nível do desafio.
+
+<img width="747" height="265" alt="Captura de tela 2025-11-27 202842" src="https://github.com/user-attachments/assets/81b0ca8d-9e4a-42bc-a43f-a84cb828067e" />
+
+> chave: bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
+
+#### nível 7 → 8
+
+> credenciais: natas7 / bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
+
+A página disponibiliza os seguintes links:
+
+<img width="743" height="174" alt="Captura de tela 2025-11-27 211624" src="https://github.com/user-attachments/assets/d496ba13-e3b5-4bc2-8a3b-10da587997f6" />
+
+Ao acessar um dos links fornecidos, é possível observar que a página utiliza o parâmetro `page` para decidir qual arquivo será incluído e exibido.
+
+<img width="465" height="40" alt="Captura de tela 2025-11-27 214529" src="https://github.com/user-attachments/assets/a082a7f2-fc8b-4778-a68b-1a9b1128a787" />
+
+Se o código da aplicação permite incluir qualquer arquivo por meio do parâmetro page, podemos explorar essa funcionalidade para “forçar” o site a carregar o arquivo secreto. Os níveis do Natas seguem um padrão em que a senha para o próximo nível fica armazenada em um arquivo dentro da pasta `/etc/natas_webpass/`. Assim, ao manipular a URL e definir o parâmetro page para apontar diretamente para esse arquivo, conseguimos que o servidor o inclua e exiba seu conteúdo. 
+
+<img width="624" height="32" alt="Captura de tela 2025-11-27 215343" src="https://github.com/user-attachments/assets/c1a182b6-624c-4858-8fbb-eeb94b113d25" />
+
+Dessa forma, obtemos a chave necessária para avançar ao próximo desafio.
+
+<img width="745" height="186" alt="Captura de tela 2025-11-27 213554" src="https://github.com/user-attachments/assets/218cb7f6-81d6-4785-8ec7-c8f295370db0" />
+
+> chave: xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
+
+#### nível 8 → 9
+
+> credenciais: natas8 / xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
+
+Assim como em níveis anteriores, a página novamente solicita uma __“entrada secreta”__ como condição para liberar a chave de acesso ao próximo desafio.
+
+<img width="747" height="219" alt="Captura de tela 2025-11-27 223727" src="https://github.com/user-attachments/assets/c858c0d0-a7c3-4d1b-bf5e-68048dd5e4b7" />
+
+Além disso, é disponibilizado um link para o código-fonte.
+
+<img width="1335" height="809" alt="Captura de tela 2025-11-27 223956" src="https://github.com/user-attachments/assets/15c7300c-fce0-455b-9058-e06b501f42dd" />
+
+Ao analisar o código-fonte, percebemos que a aplicação espera uma entrada igual a __3d3d516343746d4d6d6c315669563362__. No entanto, essa entrada não é utilizada diretamente, pois passa por uma transformação realizada pela função `encodeSecret()`. 
+
+Utilizando o seguinte script em [Python](https://aws.amazon.com/pt/what-is/python/), conseguimos inverter o processo aplicado pela função e recuperar o valor original da entrada secreta.
+
+```
+import base64
+
+secret = "3d3d516343746d4d6d6c315669563362"
+secret = bytes.fromhex(secret)
+secret = secret[::-1]
+secret = base64.decodebytes(secret)
+
+print(secret)
+
+```
+> resposta: oubWYf2kBq
+
+Ao inserir a entrada correta, a aplicação valida o valor fornecido e libera o acesso à chave do próximo nível.
+
+<img width="744" height="262" alt="Captura de tela 2025-11-27 223204" src="https://github.com/user-attachments/assets/dfed4ea4-7fa1-438f-bf64-870486c53b54" />
+
+> chave: ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
+
+#### nível 9 → 10
+
+> credenciais: natas9 / ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
+
+O nível possuiu o seguinte enunciado:
+
+<img width="748" height="254" alt="Captura de tela 2025-11-27 230756" src="https://github.com/user-attachments/assets/27f621ea-29c4-450c-8d65-e087955fdb8b" />
+
+E novamente um link para acessar o código-fonte.
+
+<img width="1374" height="731" alt="Captura de tela 2025-11-27 231116" src="https://github.com/user-attachments/assets/faf6e047-01fc-4cef-b779-45f923130226" />
+
+
+Ao analisar o código, podemos perceber a possibilidade de injeção de comandos.
+
+Portanto, ao inserir o comando `; cat /etc/natas_webpass/natas10` no campo de busca, a aplicação executa esse trecho adicional no [shell](https://www.datacamp.com/pt/blog/what-is-shell). Isso acontece porque o caractere `;` atua como um separador de comandos, permitindo que instruções diferentes sejam encadeadas. Dessa forma, conseguimos forçar o sistema a exibir diretamente o conteúdo do arquivo que contém a senha do próximo nível
+
+<img width="746" height="207" alt="Captura de tela 2025-11-27 232644" src="https://github.com/user-attachments/assets/30926a2f-5709-4462-99e1-8ea24d7dde47" />
+
+> chave: t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+
+#### nível 10 → 11
+
+> credenciais: natas10 / t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
