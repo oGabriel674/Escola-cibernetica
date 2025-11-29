@@ -251,4 +251,99 @@ Portanto, ao inserir o comando `; cat /etc/natas_webpass/natas10` no campo de bu
 
 #### nível 10 → 11
 
+
 > credenciais: natas10 / t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+
+O nível possuiu o seguinte enunciado:
+
+<img width="751" height="305" alt="Captura de tela 2025-11-28 183014" src="https://github.com/user-attachments/assets/7c682c8c-8ea2-49c2-9479-05c4f7cebb4d" />
+
+Assim como no nível anterior, novamente nos é fornecido um link para o código-fonte da aplicação.
+
+<img width="1405" height="851" alt="Captura de tela 2025-11-28 183727" src="https://github.com/user-attachments/assets/d8d43c02-4648-4eb3-b2b0-2e5220af7622" />
+
+Ao analisar o código-fonte, percebemos que sua estrutura é bastante semelhante à do nível anterior. No entanto, há uma diferença importante, foram adicionadas restrições quanto aos caracteres permitidos na entrada.
+
+Utilizando a expressão `.* /etc/natas_webpass/natas11` como entrada, conseguimos explorar a forma como a aplicação trata os parâmetros e, com isso, forçar a leitura de arquivos específicos dentro de um diretório.
+
+O uso de `.*` funciona como um coringa, permitindo que o sistema interprete a entrada de maneira mais ampla e aceite caminhos adicionais. Dessa forma, é possível direcionar a aplicação para incluir o arquivo que contém a senha do próximo nível, mesmo diante das restrições impostas pelo código.
+
+<img width="747" height="333" alt="Captura de tela 2025-11-28 184015" src="https://github.com/user-attachments/assets/47b92a63-b178-4b85-a87c-b81bee662206" />
+
+> chave: UJdqkK1pTu6VLt9UHWAgRZz6sVUZ3lEk
+
+#### nível 11 → 12
+
+> credenciais: natas11 / UJdqkK1pTu6VLt9UHWAgRZz6sVUZ3lEk
+
+O enunciado informa que os cookies estão protegidos por uma criptografia XOR. Isso significa que o valor armazenado no cookie não é salvo em texto "claro", mas sim após passar por uma operação de XOR com uma chave definida pelo sistema. Esse tipo de criptografia é relativamente simples: cada byte do texto original é combinado com um byte da chave por meio da operação lógica XOR, resultando em um valor aparentemente aleatório. 
+
+<img width="672" height="215" alt="Captura de tela 2025-11-28 184645" src="https://github.com/user-attachments/assets/883a6977-9e77-4f9d-80c1-96583cb98625" />
+
+Além disso, a aplicação oferece a possibilidade de selecionar a cor do background do site. Esse recurso, embora pareça apenas estético, está diretamente ligado ao funcionamento dos cookies e à forma como eles são manipulados.
+
+ Além disso, o cookie contém o campo `showpassword`, inicialmente definido como `no`. A lógica do sistema indica que, se esse valor for alterado para `yes`, a aplicação revelará a senha do próximo nível. O problema é que o cookie não está armazenado em texto puro: ele passa por uma função chamada `xor_encrypt()`, que aplica uma criptografia simples baseada em [XOR](https://pt.khanacademy.org/computing/computer-science/cryptography/ciphers/a/xor-bitwise-operation).
+Como não temos acesso direto à chave utilizada por essa função, não é possível modificar o cookie manualmente de forma imediata. O desafio, portanto, consiste em descobrir ou deduzir a chave XOR para que possamos decifrar o cookie atual, alterar o campo `showpassword` para `yes`, e então recriptografar o valor corretamente. Só assim o sistema aceitará o cookie modificado e exibirá a senha.
+
+Para isso, utilizarei o seguinte script em Python:
+
+ ```
+import base64
+import json
+
+ciphertext = b"ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw="
+ciphertext = base64.decodebytes(ciphertext)
+plaintext = {"showpassword":"no", "bgcolor":"#ffffff"}
+# Here, we remove the space as JSON implementation in Python is different from PHP
+plaintext = json.dumps(plaintext).encode('utf-8').replace(b" ", b"")
+
+def xor_decrypt(plaintext, ciphertext):
+    secret = ""
+
+    for x in range(len(plaintext)):
+        secret += str(chr(ciphertext[x] ^ plaintext[x % len(plaintext)]))
+
+    return secret
+
+secret = xor_decrypt(ciphertext, plaintext)
+print(secret)
+
+ ```
+
+<img width="772" height="488" alt="Screenshot_2025-11-28_14_51_56" src="https://github.com/user-attachments/assets/de766dd8-52d1-4682-9f2a-694f27b2ac23" />
+
+> respsta: qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jq
+
+Após isso, precisamos codificar o novo cookie para "yes" como valor para "showpassword", utilizando o seguinte script em Python:
+
+```
+import base64
+import json
+
+# Here we added a "w" at the end because the cookie is 
+# 1 byte longer as "yes" is 3 bytes and "no" 2 bytes
+# Why a "w" ? it is just due to the pattern of the key
+key = b"qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw"
+new_cookie = {"showpassword":"yes", "bgcolor":"#ffffff"}
+new_cookie = json.dumps(new_cookie).encode('utf-8').replace(b" ", b"")
+
+def xor_encrypt(key, cookie):
+    data = ""
+    for x in range(len(key)):
+        data += str(chr(cookie[x] ^ key[x % len(key)]))
+
+    data = base64.encodebytes(data.encode('utf-8'))
+    return data
+
+data = xor_encrypt(key, new_cookie)
+print(data)
+
+```
+
+<img width="606" height="341" alt="Screenshot_2025-11-27_20_31_18" src="https://github.com/user-attachments/assets/d2ec9ac7-62c9-458a-8abf-f01ff4819beb" />
+
+> valor do novo cookie:  ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK
+
+Com o novo valor do cookie, o passo final é editar o cookie diretamente no navegador. Para isso, podemos utilizar as ferramentas de desenvolvedor (DevTools) disponível no navegador.
+
+
