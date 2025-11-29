@@ -340,10 +340,8 @@ print(data)
 
 ```
 
-<img width="606" height="341" alt="Screenshot_2025-11-27_20_31_18" src="https://github.com/user-attachments/assets/d2ec9ac7-62c9-458a-8abf-f01ff4819beb" />
+<img width="691" height="503" alt="Screenshot_2025-11-28_14_53_03" src="https://github.com/user-attachments/assets/05a85655-df8e-4ce7-8b44-af43731a41ed" />
 
 > valor do novo cookie:  ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK
 
 Com o novo valor do cookie, o passo final é editar o cookie diretamente no navegador. Para isso, podemos utilizar as ferramentas de desenvolvedor (DevTools) disponível no navegador.
-
-
