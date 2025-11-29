@@ -430,6 +430,27 @@ Observando o código-fonte, é possivel notar que o servidor verifica a extensã
 
 <img width="949" height="166" alt="Captura de tela 2025-11-29 165932" src="https://github.com/user-attachments/assets/95223f58-8bb6-423b-8d73-bc8d16437545" />
 
-Também é possível notar que a extensão .jpg está sendo adicionada diretamente ao formulário HTML, tornando-o editável nas Ferramentas de DevTools.
+Também é possível notar que a extensão `.jpg` está sendo adicionada diretamente ao formulário HTML, tornando-o editável nas Ferramentas de DevTools. 
 
+Podemos explorar isso criando um script PHP no terminal do [linux](https://www.ibm.com/br-pt/think/topics/linux):
+
+`nano shell.php`
+
+Após isso, abrimos as ferramentas de DevTools e alteramos o elemento do formulário HTML (provavelmente será algo similar a `<input type="hidden" name="filename" value="abc123.jpg">`) para `<input type="hidden" name="filename" value="abc123.php">`.
+
+<img width="1277" height="461" alt="Captura de tela 2025-11-29 191135" src="https://github.com/user-attachments/assets/2c24a2ea-ceb3-4501-91e9-e7e9f20e54a8" />
+
+Após editar o formulário e alterar a extensão para `.php`, realizamos o upload do arquivo para o servidor. O servidor salva o arquivo com o nome: 
+
+`upload/abc123.php`
+
+ Em seguida, basta acessar o link gerado após o upload. Como o arquivo contém código PHP válido, ao ser acessado ele será executado pelo servidor e o resultado será a chave para o próximo nível.
+
+<img width="383" height="43" alt="Captura de tela 2025-11-29 192128" src="https://github.com/user-attachments/assets/7792aeeb-adeb-4ffe-acde-902a3a0a48a7" />
+
+> chave: trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC
+
+#### nível 13 → 12
+
+> credenciais: natas13 / trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC
 
