@@ -276,72 +276,160 @@ O uso de `.*` funciona como um coringa, permitindo que o sistema interprete a en
 
 > credenciais: natas11 / UJdqkK1pTu6VLt9UHWAgRZz6sVUZ3lEk
 
-O enunciado informa que os cookies estão protegidos por uma criptografia XOR. Isso significa que o valor armazenado no cookie não é salvo em texto "claro", mas sim após passar por uma operação de XOR com uma chave definida pelo sistema. Esse tipo de criptografia é relativamente simples: cada byte do texto original é combinado com um byte da chave por meio da operação lógica XOR, resultando em um valor aparentemente aleatório. 
+O enunciado informa que os cookies estão protegidos por uma criptografia [XOR](https://pt.khanacademy.org/computing/computer-science/cryptography/ciphers/a/xor-bitwise-operation). Isso significa que o valor armazenado no cookie não é salvo em texto "claro", mas sim após passar por uma operação de XOR com uma chave definida pelo sistema. Esse tipo de criptografia é relativamente simples: cada byte do texto original é combinado com um byte da chave por meio da operação lógica XOR, resultando em um valor aparentemente aleatório. 
 
 <img width="672" height="215" alt="Captura de tela 2025-11-28 184645" src="https://github.com/user-attachments/assets/883a6977-9e77-4f9d-80c1-96583cb98625" />
 
 Além disso, a aplicação oferece a possibilidade de selecionar a cor do background do site. Esse recurso, embora pareça apenas estético, está diretamente ligado ao funcionamento dos cookies e à forma como eles são manipulados.
 
- Além disso, o cookie contém o campo `showpassword`, inicialmente definido como `no`. A lógica do sistema indica que, se esse valor for alterado para `yes`, a aplicação revelará a senha do próximo nível. O problema é que o cookie não está armazenado em texto puro: ele passa por uma função chamada `xor_encrypt()`, que aplica uma criptografia simples baseada em [XOR](https://pt.khanacademy.org/computing/computer-science/cryptography/ciphers/a/xor-bitwise-operation).
+ Além disso, o cookie contém o campo `showpassword`, inicialmente definido como `no`. A lógica do sistema indica que, se esse valor for alterado para `yes`, a aplicação revelará a senha do próximo nível. O problema é que o cookie não está armazenado em texto puro: ele passa por uma função chamada `xor_encrypt()`, que aplica uma criptografia simples baseada em XOR.
 Como não temos acesso direto à chave utilizada por essa função, não é possível modificar o cookie manualmente de forma imediata. O desafio, portanto, consiste em descobrir ou deduzir a chave XOR para que possamos decifrar o cookie atual, alterar o campo `showpassword` para `yes`, e então recriptografar o valor corretamente. Só assim o sistema aceitará o cookie modificado e exibirá a senha.
 
-Para isso, utilizarei o seguinte script em Python:
+Para validar o funcionamento da criptografia XOR e gerar o novo cookie, podemos utilizar um [compilador PHP online](https://www.programiz.com/php/online-compiler/) junto com o seguinte código:
 
  ```
-import base64
-import json
+function  xor_encrypt_2 ( $in ) {                   
+      $key = base64_decode ( "HmYkBwozJw4WNyAAFyB1VUcqOE1JZjUIBis7ABdmbU1GIjEJAyJvTRg%3D" );                   
+      $text = $in ;                   
+      $outText = '' ;             
+                        
+      for ( $i = 0 ; $i < strlen ( $text ); $i ++) {            
+  $outText .= $text [ $i ] ^ $key [ $i % strlen ( $key )];                   
+      }                   
+      return  $outText ;                       
+          }                        
 
-ciphertext = b"ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw="
-ciphertext = base64.decodebytes(ciphertext)
-plaintext = {"showpassword":"no", "bgcolor":"#ffffff"}
-# Here, we remove the space as JSON implementation in Python is different from PHP
-plaintext = json.dumps(plaintext).encode('utf-8').replace(b" ", b"")
-
-def xor_decrypt(plaintext, ciphertext):
-    secret = ""
-
-    for x in range(len(plaintext)):
-        secret += str(chr(ciphertext[x] ^ plaintext[x % len(plaintext)]))
-
-    return secret
-
-secret = xor_decrypt(ciphertext, plaintext)
-print(secret)
-
+          $mydata = array ( "showpassword" => "no" , "bgcolor" => "#ffffff" );                       
+          $mydata_json = json_encode ( $mydata );                       
+          $mydata_enc = xor_encrypt_2 ( $mydata_json );                       
+          echo  $mydata_enc ;  
  ```
 
-<img width="772" height="488" alt="Screenshot_2025-11-28_14_51_56" src="https://github.com/user-attachments/assets/de766dd8-52d1-4682-9f2a-694f27b2ac23" />
+<img width="1433" height="494" alt="Captura de tela 2025-11-29 154921" src="https://github.com/user-attachments/assets/5302466a-afe3-495a-a60f-a18a79c21162" />
 
-> respsta: qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jq
+> respsta: eDWoeDWoeDWoeDWoeDWoeDWoeDWoeDWoeDWoeD	
 
-Após isso, precisamos codificar o novo cookie para "yes" como valor para "showpassword", utilizando o seguinte script em Python:
+Após isso, precisamos codificar o novo cookie para "yes" como valor para "showpassword", utilizando o seguinte script:
 
 ```
-import base64
-import json
-
-# Here we added a "w" at the end because the cookie is 
-# 1 byte longer as "yes" is 3 bytes and "no" 2 bytes
-# Why a "w" ? it is just due to the pattern of the key
-key = b"qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw"
-new_cookie = {"showpassword":"yes", "bgcolor":"#ffffff"}
-new_cookie = json.dumps(new_cookie).encode('utf-8').replace(b" ", b"")
-
-def xor_encrypt(key, cookie):
-    data = ""
-    for x in range(len(key)):
-        data += str(chr(cookie[x] ^ key[x % len(key)]))
-
-    data = base64.encodebytes(data.encode('utf-8'))
-    return data
-
-data = xor_encrypt(key, new_cookie)
-print(data)
+  function  xor_encrypt_2 ( $in ) {                   
+    $key = "eDWo" ;                   
+    $text = $in ;                   
+    $outText = '' ; 
+                                    
+    for ( $i = 0 ; $i < strlen ( $text ); $i ++) {            
+  $outText .= $text [ $i ] ^ $key [ $i % strlen ( $key )];                   
+      }                   
+      return  $outText ;                       
+          }                        
+          $mydata = array ( "showpassword" => "yes" , "bgcolor" => "#ffffff" ); 
+          $mydata_json = json_encode ( $mydata );                       
+          $mydata_enc = xor_encrypt_2 ( $mydata_json );                       
+          $mydata_b64 = base64_encode ( $mydata_enc );                       
+          echo  $mydata_b64 ;
 
 ```
 
-<img width="691" height="503" alt="Screenshot_2025-11-28_14_53_03" src="https://github.com/user-attachments/assets/05a85655-df8e-4ce7-8b44-af43731a41ed" />
+<img width="1419" height="443" alt="Captura de tela 2025-11-29 155204" src="https://github.com/user-attachments/assets/b28f0c29-2729-4f9f-ad5d-47be10b0bd15" />
 
-> valor do novo cookie:  ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK
+> valor do novo cookie: HmYkBwozJw4WNyAAFyB1VUc9MhxHaHUNAic4Awo2dVVHZzEJAyIxCUc5
 
-Com o novo valor do cookie, o passo final é editar o cookie diretamente no navegador. Para isso, podemos utilizar as ferramentas de desenvolvedor (DevTools) disponível no navegador.
+Com o novo valor do cookie, o passo final é editar o cookie - com o nome de "data" - diretamente no navegador. Para isso, podemos utilizar as ferramentas de desenvolvedor (DevTools) disponível no navegador.
+
+<img width="749" height="658" alt="Captura de tela 2025-11-29 155914" src="https://github.com/user-attachments/assets/ecce2691-e6e5-4f85-8b07-4704cd0de28e" />
+
+E assim, basta recarregar a página para obtermos a chave para o proximo nível.
+
+<img width="675" height="235" alt="Captura de tela 2025-11-29 151738" src="https://github.com/user-attachments/assets/909aa85f-a755-46bc-90f5-8994665da52b" />
+
+> chave: yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
+
+#### nível 12 → 13
+
+> credenciais: natas12 / yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
+
+Neste nível, a aplicação nos pede para enviar um arquivo [JPEG](https://www.adobe.com/br/creativecloud/file-types/image/raster/jpeg-file.html) com tamanho máximo de 1KB. Essa restrição de tamanho é proposital: ela impede que façamos upload de imagens comuns, que geralmente ultrapassam facilmente esse limite. Assim, podemos gerar um JPEG mínimo, contendo apenas os bytes necessários para ser reconhecido como válido.
+
+<img width="675" height="219" alt="Captura de tela 2025-11-29 163500" src="https://github.com/user-attachments/assets/bce96671-aaff-4e21-a05c-5623aeffdebc" />
+
+Assim como nos níveis anteriores, este desafio disponibiliza o código-fonte da aplicação.
+
+```
+
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas12", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas12</h1>
+<div id="content">
+<?php
+
+function genRandomString() {
+    $length = 10;
+    $characters = "0123456789abcdefghijklmnopqrstuvwxyz";
+    $string = "";
+
+    for ($p = 0; $p < $length; $p++) {
+        $string .= $characters[mt_rand(0, strlen($characters)-1)];
+    }
+
+    return $string;
+}
+
+function makeRandomPath($dir, $ext) {
+    do {
+    $path = $dir."/".genRandomString().".".$ext;
+    } while(file_exists($path));
+    return $path;
+}
+
+function makeRandomPathFromFilename($dir, $fn) {
+    $ext = pathinfo($fn, PATHINFO_EXTENSION);
+    return makeRandomPath($dir, $ext);
+}
+
+if(array_key_exists("filename", $_POST)) {
+    $target_path = makeRandomPathFromFilename("upload", $_POST["filename"]);
+
+
+        if(filesize($_FILES['uploadedfile']['tmp_name']) > 1000) {
+        echo "File is too big";
+    } else {
+        if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+            echo "The file <a href=\"$target_path\">$target_path</a> has been uploaded";
+        } else{
+            echo "There was an error uploading the file, please try again!";
+        }
+    }
+} else {
+?>
+
+<form enctype="multipart/form-data" action="index.php" method="POST">
+<input type="hidden" name="MAX_FILE_SIZE" value="1000" />
+<input type="hidden" name="filename" value="<?php print genRandomString(); ?>.jpg" />
+Choose a JPEG to upload (max 1KB):<br/>
+<input name="uploadedfile" type="file" /><br />
+<input type="submit" value="Upload File" />
+</form>
+<?php } ?>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+
+```
+
+Observando o código-fonte, é possivel notar que o servidor verifica a extensão do arquivo, mas não o conteúdo do arquivo.
+
+<img width="949" height="166" alt="Captura de tela 2025-11-29 165932" src="https://github.com/user-attachments/assets/95223f58-8bb6-423b-8d73-bc8d16437545" />
+
+Também é possível notar que a extensão .jpg está sendo adicionada diretamente ao formulário HTML, tornando-o editável nas Ferramentas de DevTools.
+
+
