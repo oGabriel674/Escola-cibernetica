@@ -1,4 +1,5 @@
 # CTF - Natas (OverTheWire)
+### solução de 0 → 15
 ###### solved by @oGabriel674
 
 > Esta é uma série de desafios voltados para a exploração de vulnerabilidades e fundamentos de segurança web.
@@ -280,9 +281,9 @@ O enunciado informa que os cookies estão protegidos por uma criptografia [XOR](
 
 <img width="672" height="215" alt="Captura de tela 2025-11-28 184645" src="https://github.com/user-attachments/assets/883a6977-9e77-4f9d-80c1-96583cb98625" />
 
-Além disso, a aplicação oferece a possibilidade de selecionar a cor do background do site. Esse recurso, embora pareça apenas estético, está diretamente ligado ao funcionamento dos cookies e à forma como eles são manipulados.
+A aplicação oferece a possibilidade de selecionar a cor do background do site. Esse recurso, embora pareça apenas estético, está diretamente ligado ao funcionamento dos cookies e à forma como eles são manipulados.
 
- Além disso, o cookie contém o campo `showpassword`, inicialmente definido como `no`. A lógica do sistema indica que, se esse valor for alterado para `yes`, a aplicação revelará a senha do próximo nível. O problema é que o cookie não está armazenado em texto puro: ele passa por uma função chamada `xor_encrypt()`, que aplica uma criptografia simples baseada em XOR.
+Além disso, o cookie contém o campo `showpassword`, inicialmente definido como `no`. A lógica do sistema indica que, se esse valor for alterado para `yes`, a aplicação revelará a senha do próximo nível. O problema é que o cookie não está armazenado em texto puro: ele passa por uma função chamada `xor_encrypt()`, que aplica uma criptografia simples baseada em XOR.
 Como não temos acesso direto à chave utilizada por essa função, não é possível modificar o cookie manualmente de forma imediata. O desafio, portanto, consiste em descobrir ou deduzir a chave XOR para que possamos decifrar o cookie atual, alterar o campo `showpassword` para `yes`, e então recriptografar o valor corretamente. Só assim o sistema aceitará o cookie modificado e exibirá a senha.
 
 Para validar o funcionamento da criptografia XOR e gerar o novo cookie, podemos utilizar um [compilador PHP online](https://www.programiz.com/php/online-compiler/) junto com o seguinte código:
@@ -348,7 +349,7 @@ E assim, basta recarregar a página para obtermos a chave para o proximo nível.
 
 > credenciais: natas12 / yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
 
-Neste nível, a aplicação nos pede para enviar um arquivo [JPEG](https://www.adobe.com/br/creativecloud/file-types/image/raster/jpeg-file.html) com tamanho máximo de 1KB. Essa restrição de tamanho é proposital: ela impede que façamos upload de imagens comuns, que geralmente ultrapassam facilmente esse limite. Assim, podemos gerar um JPEG mínimo, contendo apenas os bytes necessários para ser reconhecido como válido.
+Neste nível, a aplicação nos pede para enviar um arquivo [JPEG](https://www.adobe.com/br/creativecloud/file-types/image/raster/jpeg-file.html) com tamanho máximo de 1KB. Essa restrição de tamanho é proposital: ela impede que façamos upload de imagens comuns, que geralmente ultrapassam facilmente esse limite. 
 
 <img width="675" height="219" alt="Captura de tela 2025-11-29 163500" src="https://github.com/user-attachments/assets/bce96671-aaff-4e21-a05c-5623aeffdebc" />
 
