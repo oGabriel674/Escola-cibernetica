@@ -249,7 +249,7 @@ A tabela a seguir mostra um breve exemplo de como uma serializacao funciona.
 
 <img width="844" height="590" alt="Captura de tela 2026-02-08 202956" src="https://github.com/user-attachments/assets/b0329ae9-e307-4b9a-bf46-911c75a92da3" />
 
-Além da serialização o código-fonte também nos informa que o cookie deve estar codificado em [__Base6__](https://builtin.com/software-engineering-perspectives/base64-encoding).
+Além da serialização o código-fonte também nos informa que o cookie deve estar codificado em [__Base64__](https://builtin.com/software-engineering-perspectives/base64-encoding).
 
 Com essas informações em mãos, e utilizando o [__Burp Suite__](https://blog.solyd.com.br/o-que-e-o-burp-suite/) para interceptar as requisições, podemos modificar o cookie por meio do processo de serialização e, em seguida, codificá-lo em Base64. O resultado final fica com o seguinte formato:
 
