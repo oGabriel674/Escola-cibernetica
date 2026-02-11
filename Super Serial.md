@@ -251,12 +251,33 @@ A tabela a seguir mostra um breve exemplo de como uma serializacao funciona.
 
 Além da serialização o código-fonte também nos informa que o cookie deve estar codificado em [__Base64__](https://builtin.com/software-engineering-perspectives/base64-encoding).
 
-Com essas informações em mãos, e utilizando o [__Burp Suite__](https://blog.solyd.com.br/o-que-e-o-burp-suite/) para interceptar as requisições, podemos modificar o cookie por meio do processo de serialização e, em seguida, codificá-lo em Base64. O resultado final fica com o seguinte formato:
+Com essas informações em mãos, e utilizando o [__Burp Suite__](https://blog.solyd.com.br/o-que-e-o-burp-suite/) para interceptar as requisições, podemos modificar o cookie por meio do processo de serialização e, em seguida, utilizando da ferramente __Decoder__ do própio Burp Suite codificá-lo em Base64.
+
+<img width="1920" height="347" alt="Screenshot_2026-02-08_19_20_37" src="https://github.com/user-attachments/assets/b11a6dd0-050e-4add-91c4-43c30d4dc54e" />
 
 __Serialização:__
 
->- O:10"access_log":1:{s:8"log_file";s:7:"../flag";}
+>- O:10:"access_log":1:{s:8:"log_file";s:7:"../flag";}
+
 
 __Codificação em Base64:__
 
->- TzoxMCJhY2Nlc3NfbG9nIjoxOntzOjgibG9nX2ZpbGUiO3M6NzoiLi4vZmxhZyI7fSANCg==
+>- TzoxMDoiYWNjZXNzX2xvZyI6MTp7czo4OiJsb2dfZmlsZSI7czo3OiIuLi9mbGFnIjt9
+
+Em seguida, ao interceptar as requisições realizadas durante o processo de login utilizando o endpoint __/authentication.php__, é possível manipular o cookie de autenticação. Por meio da ferramenta __Repeater__, basta alterar o nome do cookie para login e inserir o codificado.
+
+<img width="793" height="508" alt="Screenshot_2026-02-11_13_12_072" src="https://github.com/user-attachments/assets/f83d84e0-4327-4a3c-83be-06d6db34e7a3" />
+
+<img width="785" height="541" alt="Screenshot_2026-02-11_13_11_16" src="https://github.com/user-attachments/assets/c66a8193-e46a-4b98-b067-59d0a8ce35ba" />
+
+E assim, obtemos a flag.
+
+<img width="771" height="249" alt="Screenshot_2026-02-08_19_22_05" src="https://github.com/user-attachments/assets/55798312-4115-4567-bd50-fc94a1a96239" />
+
+#### conclusão
+
+Flag:
+
+>- picoCTF{1_c4nn0t_s33_y0u_2fba20fa}
+
+Este desafio mostra como uma autenticação mal implementada pode ser explorada. O uso de serialização sem validação adequada é perigosa, pois permite que objetos manipulados sejam aceitos pelo sistema. Além disso, demonstra que cookies não são cem por cento confiáveis, já que podem ser interceptados e modificados para obter acesso indevido.O desafio reforça a importância de implementar mecanismos de autenticação robustos e validar corretamente os dados recebidos.
