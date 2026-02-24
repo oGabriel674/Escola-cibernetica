@@ -55,11 +55,11 @@ Esse caminho evidencia a importância de proteger aplicações contra __SSTI__, 
 
 Algumas formas de previnir esse tipo de ataque são:
 
-- Ativar sandboxing no Jinja2.
+- Ativar sandboxing no Jinja2:
 O Jinja2 possui modos de execução restritos que bloqueiam acesso a atributos perigosos como __``globals``__, __``dict``__ e __``mro``__.
 
-- Validar e sanitizar entradas.
+- Validar e sanitizar entradas:
 Sempre tratar os dados recebidos do usuário como não confiáveis e aplicar filtros ou escapes antes de renderizar.
 
-- Nunca renderizar dados do usuário diretamente em templates.
+- Nunca renderizar dados do usuário diretamente em templates:
 Usar variáveis seguras e evitar concatenar strings vindas do cliente com o motor de templates.
