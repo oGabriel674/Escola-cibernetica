@@ -7,7 +7,7 @@
 
 #### Solução
 
-O desafio tem início na tela de login, onde devemos inserir credenciais para acessar o sistema.
+O desafio tem início com a seguinte tela: onde devemos inserir nosso nome.
 
 <img width="502" height="285" alt="Captura de tela 2026-02-22 221343" src="https://github.com/user-attachments/assets/c05dae2d-4fd2-4cfd-9c99-b2eeeea02686" />
 
